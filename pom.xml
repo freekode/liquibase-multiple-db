@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>ru.simplgroupp</groupId>
+    <artifactId>database</artifactId>
+    <packaging>pom</packaging>
+
+    <version>0.0.1</version>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>3.3.5</version>
+                <executions>
+                    <execution>
+                        <id>first</id>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <propertyFile>database/changelog/first/dev.properties</propertyFile>
+                            <changeLogFile>database/changelog/first/changelog-master.xml</changeLogFile>
+                        </configuration>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>second</id>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <propertyFile>database/changelog/second/dev.properties</propertyFile>
+                            <changeLogFile>database/changelog/second/changelog-master.xml</changeLogFile>
+                        </configuration>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>9.3-1103-jdbc41</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+</project>
